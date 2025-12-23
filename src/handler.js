@@ -112,12 +112,10 @@ export async function handler(sock, msg) {
       text: `📞 *Contact Information*\n\n` +
             `*NovoNex Software Solutions:*\n` +
             `📱 Hotline: 077 069 1283\n` +
-            `📧 Email: novonexlk@gmail.com\n` +
-            `🌐 Website: www.novonex.com\n\n` +
+            `📧 Email: novonexlk@gmail.com\n\n` +
             `*NovoNex Digital Works:*\n` +
             `📱 Hotline: 075 339 4278\n` +
-            `📧 Email: novonexlk@gmail.com\n` +
-            `🌐 Website: digital.novonex.com`
+            `📧 Email: novonexlk@gmail.com`
     });
     return;
   }
@@ -344,37 +342,242 @@ async function handleServiceSelection(sock, from, serviceId) {
     
     const serviceDetails = {
       // Software Services
-      'service1': `*1️⃣ Custom Software Development*\n\n• Business Management Systems\n• Inventory / POS Systems\n• Accounting & Billing Systems\n• CRM / ERP Systems\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service2': `*2️⃣ Web Application Development*\n\n• Custom Web Applications\n• Admin Dashboards\n• Booking Systems\n• Learning Management Systems\n• Job Portals\n• SaaS Platforms\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service3': `*3️⃣ Website Development*\n\n• Business Websites\n• Corporate Websites\n• Portfolio Websites\n• Blog & Content Websites\n• Landing Pages\n• Multi-language Websites\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service4': `*4️⃣ E-Commerce Solutions*\n\n• Online Store Development\n• Payment Gateway Integration\n• Product & Order Management\n• Customer Accounts\n• Admin Panel\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service5': `*5️⃣ Mobile Application Development*\n\n• Android Applications\n• iOS Applications\n• Hybrid Apps (React Native / Flutter)\n• App UI Design\n• API Integration\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service6': `*6️⃣ UI / UX Design*\n\n• Website UI Design\n• Mobile App UI Design\n• Dashboard UI Design\n• User Experience Optimization\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service7': `*7️⃣ AI & Automation Solutions*\n\n• AI-powered Web Apps\n• Chatbots\n• Image / Content Generation Tools\n• Automation Systems\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service8': `*8️⃣ System Integration & API Development*\n\n• Third-party API Integration\n• Payment Gateways\n• SMS / Email Systems\n• Maps & Location Services\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service9': `*9️⃣ Cloud & Hosting Services*\n\n• Domain Registration\n• Web Hosting\n• Cloud Deployment\n• Server Setup & Maintenance\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service10': `*🔟 Maintenance & Technical Support*\n\n• Software Maintenance\n• Bug Fixing\n• Feature Updates\n• Performance Optimization\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service11': `*1️⃣1️⃣ Digital Solutions & Consulting*\n\n• IT Consulting\n• Business Digital Transformation\n• System Planning & Architecture\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
-      'service12': `*1️⃣2️⃣ Branding & Digital Presence*\n\n• Logo Design\n• Brand Identity\n• Website Content Setup\n• SEO Optimization\n\n📞 *Contact:* 077 069 1283\n📧 *Email:* novonexlk@gmail.com`,
+      'service1': `*1️⃣ Custom Software Development*\n\n` +
+                  `• *Business Management Systems*\n` +
+                  `• *Inventory / POS Systems*\n` +
+                  `• *Accounting & Billing Systems*\n` +
+                  `• *CRM / ERP Systems*\n\n` +
+                  `📞 *Contact:* 077 069 1283\n` +
+                  `📧 *Email:* novonexlk@gmail.com`,
+
+      'service2': `*2️⃣ Web Application Development*\n\n` +
+                  `• *Custom Web Applications*\n` +
+                  `• *Admin Dashboards*\n` +
+                  `• *Booking Systems*\n` +
+                  `• *Learning Management Systems (LMS)*\n` +
+                  `• *Job Portals / Classified Websites*\n` +
+                  `• *SaaS Platforms*\n\n` +
+                  `*Technologies:*\n` +
+                  `React, Next.js, Node.js, PHP, Laravel, MySQL, Firebase\n\n` +
+                  `📞 *Contact:* 077 069 1283\n` +
+                  `📧 *Email:* novonexlk@gmail.com`,
+
+      'service3': `*3️⃣ Website Development*\n\n` +
+                  `• *Business Websites*\n` +
+                  `• *Corporate Websites*\n` +
+                  `• *Portfolio Websites*\n` +
+                  `• *Blog & Content Websites*\n` +
+                  `• *Landing Pages*\n` +
+                  `• *Multi-language Websites*\n\n` +
+                  `✔️ Mobile Friendly\n` +
+                  `✔️ Fast Loading\n` +
+                  `✔️ SEO Ready\n\n` +
+                  `📞 *Contact:* 077 069 1283\n` +
+                  `📧 *Email:* novonexlk@gmail.com`,
+
+      'service4': `*4️⃣ E-Commerce Solutions*\n\n` +
+                  `• *Online Store Development*\n` +
+                  `• *Payment Gateway Integration*\n` +
+                  `• *Product & Order Management*\n` +
+                  `• *Customer Accounts*\n` +
+                  `• *Admin Panel*\n` +
+                  `• *Delivery & Invoice Systems*\n\n` +
+                  `📞 *Contact:* 077 069 1283\n` +
+                  `📧 *Email:* novonexlk@gmail.com`,
+
+      'service5': `*5️⃣ Mobile Application Development*\n\n` +
+                  `• *Android Applications*\n` +
+                  `• *iOS Applications*\n` +
+                  `• *Hybrid Apps (React Native / Flutter)*\n` +
+                  `• *App UI Design*\n` +
+                  `• *API Integration*\n\n` +
+                  `📞 *Contact:* 077 069 1283\n` +
+                  `📧 *Email:* novonexlk@gmail.com`,
+
+      'service6': `*6️⃣ UI / UX Design*\n\n` +
+                  `• *Website UI Design*\n` +
+                  `• *Mobile App UI Design*\n` +
+                  `• *Dashboard UI Design*\n` +
+                  `• *User Experience Optimization*\n` +
+                  `• *Figma / Adobe XD Designs*\n\n` +
+                  `📞 *Contact:* 077 069 1283\n` +
+                  `📧 *Email:* novonexlk@gmail.com`,
+
+      'service7': `*7️⃣ AI & Automation Solutions*\n\n` +
+                  `• *AI-powered Web Apps*\n` +
+                  `• *Chatbots*\n` +
+                  `• *Image / Content Generation Tools*\n` +
+                  `• *Automation Systems*\n` +
+                  `• *AI Integration for Businesses*\n\n` +
+                  `📞 *Contact:* 077 069 1283\n` +
+                  `📧 *Email:* novonexlk@gmail.com`,
+
+      'service8': `*8️⃣ System Integration & API Development*\n\n` +
+                  `• *Third-party API Integration*\n` +
+                  `• *Payment Gateways*\n` +
+                  `• *SMS / Email Systems*\n` +
+                  `• *Maps & Location Services*\n` +
+                  `• *ERP / CRM Integration*\n\n` +
+                  `📞 *Contact:* 077 069 1283\n` +
+                  `📧 *Email:* novonexlk@gmail.com`,
+
+      'service9': `*9️⃣ Cloud & Hosting Services*\n\n` +
+                  `• *Domain Registration*\n` +
+                  `• *Web Hosting*\n` +
+                  `• *Cloud Deployment*\n` +
+                  `• *Server Setup & Maintenance*\n` +
+                  `• *Backup & Security Management*\n\n` +
+                  `📞 *Contact:* 077 069 1283\n` +
+                  `📧 *Email:* novonexlk@gmail.com`,
+
+      'service10': `*🔟 Maintenance & Technical Support*\n\n` +
+                   `• *Software Maintenance*\n` +
+                   `• *Bug Fixing*\n` +
+                   `• *Feature Updates*\n` +
+                   `• *Performance Optimization*\n` +
+                   `• *Security Updates*\n\n` +
+                   `📞 *Contact:* 077 069 1283\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service11': `*1️⃣1️⃣ Digital Solutions & Consulting*\n\n` +
+                   `• *IT Consulting*\n` +
+                   `• *Business Digital Transformation*\n` +
+                   `• *System Planning & Architecture*\n` +
+                   `• *Startup Tech Consultation*\n\n` +
+                   `📞 *Contact:* 077 069 1283\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service12': `*1️⃣2️⃣ Branding & Digital Presence*\n\n` +
+                   `• *Logo Design*\n` +
+                   `• *Brand Identity*\n` +
+                   `• *Website Content Setup*\n` +
+                   `• *SEO Optimization*\n` +
+                   `• *Social Media Integration*\n\n` +
+                   `📞 *Contact:* 077 069 1283\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
       
       // Digital Services
-      'service13': `*1️⃣ Digital Marketing Strategy & Consulting*\n\n• Business Digital Marketing Planning\n• Brand Growth Strategy\n• Campaign Planning\n• Market & Competitor Analysis\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service14': `*2️⃣ Social Media Marketing (SMM)*\n\n• Facebook Marketing\n• Instagram Marketing\n• TikTok Marketing\n• LinkedIn Marketing\n• YouTube Management\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service15': `*3️⃣ Social Media Advertising (Paid Ads)*\n\n• Facebook & Instagram Ads\n• TikTok Ads\n• Google Display Ads\n• Lead Generation Campaigns\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service16': `*4️⃣ Content Creation & Creative Design*\n\n• Graphic Design (Posts, Banners, Flyers)\n• Video Editing (Reels, Shorts, Ads)\n• Motion Graphics\n• Brand Visual Design\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service17': `*5️⃣ Search Engine Optimization (SEO)*\n\n• On-Page SEO\n• Technical SEO\n• Keyword Research\n• Content Optimization\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service18': `*6️⃣ Search Engine Marketing (SEM)*\n\n• Google Search Ads\n• Google Shopping Ads\n• Keyword Targeted Campaigns\n• ROI-focused Ad Management\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service19': `*7️⃣ Branding & Brand Identity*\n\n• Logo Design\n• Brand Guidelines\n• Color & Typography System\n• Visual Identity Design\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service20': `*8️⃣ Website & Funnel Marketing*\n\n• Landing Page Design\n• Sales Funnel Setup\n• Website Conversion Optimization\n• Lead Capture Forms\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service21': `*9️⃣ Email & WhatsApp Marketing*\n\n• Email Campaigns\n• Newsletter Design\n• WhatsApp Bulk Messaging\n• Automation Setup\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service22': `*🔟 Influencer & Video Marketing*\n\n• Influencer Collaborations\n• YouTube Video Marketing\n• Short-form Video Strategy\n• Reels & TikTok Growth Plans\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service23': `*1️⃣1️⃣ Analytics & Performance Tracking*\n\n• Google Analytics Setup\n• Meta Pixel Integration\n• Campaign Performance Reports\n• Audience Behavior Analysis\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service24': `*1️⃣2️⃣ Local & Business Marketing*\n\n• Google My Business Optimization\n• Local SEO\n• Map-based Business Promotion\n• Review & Reputation Management\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`,
-      'service25': `*1️⃣3️⃣ Marketing Automation*\n\n• CRM Integration\n• Auto Lead Response Systems\n• Chatbot Setup\n• AI Automation for Marketing\n\n📞 *Contact:* 075 339 4278\n📧 *Email:* novonexlk@gmail.com`
+      'service13': `*1️⃣ Digital Marketing Strategy & Consulting*\n\n` +
+                   `• *Business Digital Marketing Planning*\n` +
+                   `• *Brand Growth Strategy*\n` +
+                   `• *Campaign Planning*\n` +
+                   `• *Market & Competitor Analysis*\n` +
+                   `• *Marketing Consultation*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service14': `*2️⃣ Social Media Marketing (SMM)*\n\n` +
+                   `• *Facebook Marketing*\n` +
+                   `• *Instagram Marketing*\n` +
+                   `• *TikTok Marketing*\n` +
+                   `• *LinkedIn Marketing*\n` +
+                   `• *YouTube Channel Management*\n\n` +
+                   `✔️ Content Planning\n` +
+                   `✔️ Post Designing\n` +
+                   `✔️ Page Handling\n` +
+                   `✔️ Engagement Growth\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service15': `*3️⃣ Social Media Advertising (Paid Ads)*\n\n` +
+                   `• *Facebook & Instagram Ads*\n` +
+                   `• *TikTok Ads*\n` +
+                   `• *Google Display Ads*\n` +
+                   `• *Lead Generation Campaigns*\n` +
+                   `• *Conversion & Sales Ads*\n` +
+                   `• *Retargeting Ads*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service16': `*4️⃣ Content Creation & Creative Design*\n\n` +
+                   `• *Graphic Design (Posts, Banners, Flyers)*\n` +
+                   `• *Video Editing (Reels, Shorts, Ads)*\n` +
+                   `• *Motion Graphics*\n` +
+                   `• *Brand Visual Design*\n` +
+                   `• *AI-based Creative Content*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service17': `*5️⃣ Search Engine Optimization (SEO)*\n\n` +
+                   `• *On-Page SEO*\n` +
+                   `• *Technical SEO*\n` +
+                   `• *Keyword Research*\n` +
+                   `• *Content Optimization*\n` +
+                   `• *Google Ranking Improvement*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service18': `*6️⃣ Search Engine Marketing (SEM)*\n\n` +
+                   `• *Google Search Ads*\n` +
+                   `• *Google Shopping Ads*\n` +
+                   `• *Keyword Targeted Campaigns*\n` +
+                   `• *ROI-focused Ad Management*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service19': `*7️⃣ Branding & Brand Identity*\n\n` +
+                   `• *Logo Design*\n` +
+                   `• *Brand Guidelines*\n` +
+                   `• *Color & Typography System*\n` +
+                   `• *Visual Identity Design*\n` +
+                   `• *Brand Positioning*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service20': `*8️⃣ Website & Funnel Marketing*\n\n` +
+                   `• *Landing Page Design*\n` +
+                   `• *Sales Funnel Setup*\n` +
+                   `• *Website Conversion Optimization*\n` +
+                   `• *Lead Capture Forms*\n` +
+                   `• *Email Integration*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service21': `*9️⃣ Email & WhatsApp Marketing*\n\n` +
+                   `• *Email Campaigns*\n` +
+                   `• *Newsletter Design*\n` +
+                   `• *WhatsApp Bulk Messaging*\n` +
+                   `• *Automation Setup*\n` +
+                   `• *Customer Follow-up Systems*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service22': `*🔟 Influencer & Video Marketing*\n\n` +
+                   `• *Influencer Collaborations*\n` +
+                   `• *YouTube Video Marketing*\n` +
+                   `• *Short-form Video Strategy*\n` +
+                   `• *Reels & TikTok Growth Plans*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service23': `*1️⃣1️⃣ Analytics & Performance Tracking*\n\n` +
+                   `• *Google Analytics Setup*\n` +
+                   `• *Meta Pixel Integration*\n` +
+                   `• *Campaign Performance Reports*\n` +
+                   `• *Audience Behavior Analysis*\n` +
+                   `• *Monthly Marketing Reports*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service24': `*1️⃣2️⃣ Local & Business Marketing*\n\n` +
+                   `• *Google My Business Optimization*\n` +
+                   `• *Local SEO*\n` +
+                   `• *Map-based Business Promotion*\n` +
+                   `• *Review & Reputation Management*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`,
+
+      'service25': `*1️⃣3️⃣ Marketing Automation*\n\n` +
+                   `• *CRM Integration*\n` +
+                   `• *Auto Lead Response Systems*\n` +
+                   `• *Chatbot Setup*\n` +
+                   `• *AI Automation for Marketing*\n\n` +
+                   `📞 *Contact:* 075 339 4278\n` +
+                   `📧 *Email:* novonexlk@gmail.com`
     };
 
     const details = serviceDetails[serviceId] || 
-      `*Service Details*\n\nService information not available.\n\n📞 *Contact:*\nSoftware: 077 069 1283\nDigital: 075 339 4278\n📧 *Email:* novonexlk@gmail.com`;
+      `*Service Details*\n\nService information not available.\n\n📞 *Contact:*\nNovoNex Software Solutions: 077 069 1283\nNovoNex Digital Works: 075 339 4278\n📧 *Email:* novonexlk@gmail.com`;
 
     await sock.sendMessage(from, {
       text: details,
