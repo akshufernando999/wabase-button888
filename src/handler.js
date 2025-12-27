@@ -1,12 +1,10 @@
 import { userState } from './userState.js';
 
 export async function handler(sock, msg) {
-  // Check if message exists
   if (!msg?.message) return;
   
   const from = msg.key.remoteJid;
   
-  // Get user state or create new one
   const state = userState.get(from) || { 
     step: 'start', 
     page: 1, 
@@ -16,45 +14,36 @@ export async function handler(sock, msg) {
   console.log(`📱 User: ${from}`);
   console.log(`📊 State: ${JSON.stringify(state)}`);
 
-  // Ignore group messages
   if (from.endsWith('@g.us')) {
     console.log(`🚫 Ignoring group message`);
     return;
   }
 
-  // Ignore messages sent by the bot itself
   if (msg.key.fromMe) {
     console.log(`🤖 Ignoring bot's own message`);
     return;
   }
 
-  // Extract text from message
   let text = '';
   
   if (msg.message.conversation) {
-    // Simple text message
     text = msg.message.conversation.trim();
   } else if (msg.message.extendedTextMessage?.text) {
-    // Extended text message
     text = msg.message.extendedTextMessage.text.trim();
   } else if (msg.message.buttonsResponseMessage?.selectedButtonId) {
-    // Button response
     text = msg.message.buttonsResponseMessage.selectedButtonId;
   } else if (msg.message.listResponseMessage?.singleSelectReply?.selectedRowId) {
-    // List response
     text = msg.message.listResponseMessage.singleSelectReply.selectedRowId;
   }
   
   console.log(`📩 Message text: "${text}"`);
 
-  // Handle service number selections (1, 2, 3, etc.)
   if (/^\d+$/.test(text) && state.company) {
     console.log(`🔢 Number selected: ${text}`);
     await handleNumberSelection(sock, from, parseInt(text), state);
     return;
   }
 
-  // FIRST MESSAGE: Always show welcome menu for new users
   if (state.step === 'start') {
     console.log(`✅ First time user, showing welcome menu`);
     await sendWelcomeMenu(sock, from);
@@ -62,7 +51,6 @@ export async function handler(sock, msg) {
     return;
   }
 
-  // Handle company selection
   if (text === '1' || text.toLowerCase().includes('software')) {
     console.log(`🚀 Software Solutions selected`);
     await sendSoftwareMenu(sock, from, 1);
@@ -77,15 +65,14 @@ export async function handler(sock, msg) {
     return;
   }
 
-  // Handle navigation buttons
   if (text === 'next_page') {
     console.log(`➡️ Next page requested`);
     if (state.company === 'software') {
-      const newPage = Math.min(state.page + 1, 3); // Max 3 pages for software
+      const newPage = Math.min(state.page + 1, 3);
       await sendSoftwareMenu(sock, from, newPage);
       userState.set(from, { ...state, page: newPage });
     } else if (state.company === 'digital') {
-      const newPage = Math.min(state.page + 1, 4); // Max 4 pages for digital
+      const newPage = Math.min(state.page + 1, 4);
       await sendDigitalMenu(sock, from, newPage);
       userState.set(from, { ...state, page: newPage });
     }
@@ -127,20 +114,17 @@ export async function handler(sock, msg) {
     return;
   }
 
-  // Handle service selections
   if (text.startsWith('service')) {
     console.log(`🔧 Service selected: ${text}`);
     await handleServiceSelection(sock, from, text);
     return;
   }
 
-  // If user sends any other message, show welcome menu
   console.log(`🔄 Random message, showing welcome menu`);
   await sendWelcomeMenu(sock, from);
   userState.set(from, { step: 'welcome', page: 1, company: null });
 }
 
-// Handle number selection (1, 2, 3, etc.)
 async function handleNumberSelection(sock, from, number, state) {
   try {
     console.log(`🔢 Processing number selection: ${number} for ${state.company}`);
@@ -178,7 +162,6 @@ async function handleNumberSelection(sock, from, number, state) {
   }
 }
 
-// Welcome Menu Function
 async function sendWelcomeMenu(sock, from) {
   try {
     console.log(`📤 Sending welcome menu...`);
@@ -218,7 +201,6 @@ async function sendWelcomeMenu(sock, from) {
   }
 }
 
-// Software Solutions Menu
 async function sendSoftwareMenu(sock, from, page = 1) {
   try {
     const pages = [
@@ -254,7 +236,6 @@ async function sendSoftwareMenu(sock, from, page = 1) {
     const currentPage = pages[page - 1];
     const buttons = [];
 
-    // Previous button
     if (page > 1) {
       buttons.push({
         buttonId: 'prev_page',
@@ -262,13 +243,11 @@ async function sendSoftwareMenu(sock, from, page = 1) {
       });
     }
 
-    // Main Menu button
     buttons.push({
       buttonId: 'back_to_welcome',
       buttonText: { displayText: '🏠 Main Menu' }
     });
 
-    // Next button
     if (page < pages.length) {
       buttons.push({
         buttonId: 'next_page',
@@ -276,7 +255,6 @@ async function sendSoftwareMenu(sock, from, page = 1) {
       });
     }
 
-    // Contact button
     buttons.push({
       buttonId: 'contact_info',
       buttonText: { displayText: '📞 Contact' }
@@ -296,7 +274,6 @@ async function sendSoftwareMenu(sock, from, page = 1) {
   }
 }
 
-// Digital Works Menu
 async function sendDigitalMenu(sock, from, page = 1) {
   try {
     const pages = [
@@ -338,7 +315,6 @@ async function sendDigitalMenu(sock, from, page = 1) {
     const currentPage = pages[page - 1];
     const buttons = [];
 
-    // Previous button
     if (page > 1) {
       buttons.push({
         buttonId: 'prev_page',
@@ -346,13 +322,11 @@ async function sendDigitalMenu(sock, from, page = 1) {
       });
     }
 
-    // Main Menu button
     buttons.push({
       buttonId: 'back_to_welcome',
       buttonText: { displayText: '🏠 Main Menu' }
     });
 
-    // Next button
     if (page < pages.length) {
       buttons.push({
         buttonId: 'next_page',
@@ -360,7 +334,6 @@ async function sendDigitalMenu(sock, from, page = 1) {
       });
     }
 
-    // Contact button
     buttons.push({
       buttonId: 'contact_info',
       buttonText: { displayText: '📞 Contact' }
@@ -380,13 +353,11 @@ async function sendDigitalMenu(sock, from, page = 1) {
   }
 }
 
-// Handle Service Selection Details
 async function handleServiceSelection(sock, from, serviceId) {
   try {
     console.log(`🔍 Showing details for: ${serviceId}`);
     
     const serviceDetails = {
-      // Software Services
       'service1': `*1️⃣ Custom Software Development*\n\n` +
                   `*Business Management Systems*\n` +
                   `*Inventory / POS Systems*\n` +
@@ -501,7 +472,6 @@ async function handleServiceSelection(sock, from, serviceId) {
                    `📞 *Contact:* 077 069 1283\n` +
                    `📧 *Email:* novonexlk@gmail.com`,
       
-      // Digital Services
       'service13': `*1️⃣ Digital Marketing Strategy & Consulting*\n\n` +
                    `*Business Digital Marketing Planning*\n` +
                    `*Brand Growth Strategy*\n` +
