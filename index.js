@@ -16,6 +16,7 @@ const originalLog = console.log;
 const originalStdoutWrite = process.stdout.write;
 
 const FILTER_PATTERNS = [
+  'Opening connection to WhatsApp Web',
   'Bad MAC',
   'Failed to decrypt message with any known session',
   'Session error:',
@@ -32,11 +33,17 @@ const FILTER_PATTERNS = [
   'privKey:',
   'baseKey:',
   'remoteIdentityKey:',
-  'lastRemoteEphemeralKey:',
+  'lastRemoteEphemeralKey',
   'ephemeralKeyPair:',
   'chainKey:',
   'chainType:',
-  'messageKeys:'
+  'messageKeys:',
+  'Received node',
+  'Sent node',
+  'Noise:',
+  'handshake:',
+  'Auth update:',
+  'connection update:'
 ];
 
 process.stdout.write = function(chunk, encoding, callback) {
@@ -45,6 +52,11 @@ process.stdout.write = function(chunk, encoding, callback) {
   const shouldFilter = FILTER_PATTERNS.some(pattern => str.includes(pattern));
   
   if (shouldFilter) {
+    if (str.includes('Opening connection to WhatsApp Web')) {
+      if (typeof callback === 'function') callback();
+      return true;
+    }
+    
     if (str.includes('Closing open session')) {
       const cleanMsg = chalk.blue('🔒 Signal: Encryption session updated\n');
       return originalStdoutWrite.call(this, Buffer.from(cleanMsg), encoding, callback);
@@ -105,19 +117,22 @@ function showBanner() {
 
 async function startBot() {
   showBanner();
+  
   const { state, saveCreds } = await useMultiFileAuthState(authDir);
   const sock = makeWASocket({
     auth: state,
     logger: pino({ level: 'silent' }),
+    printQRInTerminal: false,
+    browser: ['NovoNex Bot', 'Chrome', '1.0.0'],
   });
 
   sock.ev.on('connection.update', async (update) => {
     const { connection, lastDisconnect } = update;
 
     if (connection === 'open') {
-      console.log(chalk.greenBright('✅ Connected to WhatsApp!'));
+      console.log(chalk.greenBright('✅ Successfully connected to WhatsApp!'));
       console.log(chalk.cyan(`👤 User: ${sock.user?.id || 'Unknown'}`));
-      console.log(chalk.yellow('🤖 Bot is ready to receive messages...'));
+      console.log(chalk.yellow('🤖 Bot is ready to receive messages...\n'));
     } else if (connection === 'close') {
       const reason = lastDisconnect?.error?.output?.statusCode;
       const shouldReconnect = reason !== DisconnectReason.loggedOut;
@@ -136,7 +151,6 @@ async function startBot() {
     const msg = m.messages?.[0];
     if (!msg) return;
     
-    // Group messages ignore කරන්න
     if (msg.key.remoteJid.endsWith('@g.us')) return;
 
     console.log(chalk.blueBright('💬 Incoming message from:'), msg.key.remoteJid);
